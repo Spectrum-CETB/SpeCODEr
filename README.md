@@ -5,12 +5,13 @@ A simple online IDE
 - HTML
 - CSS
 - Javascript
-- Bootstrap
-- Python
+- Bootstrap 4.6.0
+- Python 3.7
 - Flask
 
-## Instalations
+## Installations
 ```
 pip install flask
+pip install subprocess
 ```
 
