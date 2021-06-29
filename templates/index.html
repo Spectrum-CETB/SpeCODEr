@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SpeCODEr - Simple Online IDE </title>
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="../static/cm/doc/docs.css">
+    <link rel="stylesheet" href="../static/cm/lib/codemirror.css">
+    <link rel="stylesheet" href="../static/cm/theme/darcula.css">
+    <script src="../static/cm/lib/codemirror.js"></script>
+    <script src="../static/cm/mode/javascript/javascript.js"></script>
+    <script src="../static/cm/mode/python/python.js"></script>
+    <script src="../static/cm/mode/clike/clike.js"></script>
+    <script src="../static/cm/mode/php/php.js"></script>
+    <script src="../static/cm/addon/selection/active-line.js"></script>
+    <link rel="icon" href="https://iconarchive.com/download/i97958/thehoth/seo/seo-web-code.ico">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></head>
+<body>
+        <div class="row bgrow">
+            <div class="col-md-5 rc5">
+                <div class="card">
+                    <div class="card-header" style="background:none;">
+                     Problem Statement
+                    </div>
+                    <div class="card-body">
+                      <p class="card-text">
+                        <div class="row">
+                            <p>
+                                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book                            </p>
+                            <p>
+                                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book                            </p>
+                        </div>
+                        <div class="row">
+                            <h5>Input</h5>
+                            <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+                            <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+                            <p>It can be proven that under the constraints of the problem, an answer always exist.</p> 
+                        </div>
+                        <div class="row">
+                            <h5>Output</h5>
+                            <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book                            </p>
+                        </p>  
+                        </div>
+                      </p>
+                    </div>
+                  </div>
+            </div>
+            <div class="col-md-7 rc7">
+                <div class="row" style="margin:0">
+                    <div class="col-md-12">
+                                <div class="row  text-right">
+                                    <div class="col-md-2">
+                                        <select class="custom-select " onChange="changeLang()" id="lang" name="lang">
+                                            <!-- <option selected value="text/x-csrc">C</option>
+                                            <option value="text/x-c++src">C++</option>
+                                            <option selected value="java">Java</option>
+                                            <option value="php">PHP</option> -->
+                                            <option selected value="python">Python</option>
+                                            <option value="javascript">Javascript</option>
+                                          </select>
+                                    </div>
+                                    <div class="col">
+                                        <button onclick="executeCode()" class="btn btn-success mb-2">Compile</button>
+                                    </div>
+                                  </div>
+                                  
+                                <div class="form-group">
+                                  <textarea placeholder="Type Your Code Here..." id="editor" class="form-control" name="code"></textarea>
+                                </div>
+
+                    </div>
+                </div>
+                
+                <div class="row" style="margin:0">
+                    <div class="col-md-5">
+                        <div class="card">
+                            <div class="card-header" style="background-color: #333332;">
+                                Custom Input :
+                              </div>
+                                <textarea rows="10" cols="10" placeholder="Type Your Code Here..." class="form-control" id="custom" name="custom"></textarea>
+                            </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="card">
+                            <div class="card-header" style="background-color: #333332;">
+                                Output :
+                              </div>
+                            <div class="card-body"><pre class="output"></pre><pre class="error"></pre></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+<!-- -----------------------All The Individual Sections Goes Here----------------------- -->
+<!-- -----------------------All the JS Links Goes Here----------------------- -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
+<script>
+    let language = "python"
+    var editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
+        mode : language,
+        lineNumbers: true,
+        styleActiveLine: true,
+        theme:'darcula'
+      });
+      editor.setSize("55vw","50vh")
+      function changeLang(){
+        language = $("#lang").val();
+        editor.setOption("mode",language);
+    }
+    function executeCode(){
+
+        var data = {code:editor.getValue(),lang:$("#lang").val(),custom:$("#custom").val()}
+        $.ajax({
+            url:"/run/",
+            type:"POST",
+            dataType: "json",
+            data:JSON.stringify(data),
+            contentType: 'application/json;charset=UTF-8',
+            success: function(data){
+                $(".output").text(data.out),
+                $(".error").text(data.err)
+            }
+            
+        })
+    }
+</script>
+<!-- -----------------------All The JS Links Goes Here----------------------- -->
+
+</body>
+</html>

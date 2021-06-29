@@ -1,0 +1,28 @@
+.bgrow{
+    background: url(https://i.pinimg.com/originals/9e/74/7d/9e747dd76f1be3d062748e6b3d030f6b.jpg);
+}
+.row , .col-md-6 , .col-md-12{
+    padding: 2px 0;
+    margin:0;
+}
+.rc7 .card{
+    margin:0;
+    height: 30vh;
+    color:white;
+}
+.rc7 .card-body{
+    overflow-y: scroll;
+}
+.rc7 .card-header{
+    padding: 10px;
+    margin:0;
+}
+
+.rc5 .card{
+    margin:20px 0 20px 20px;
+    padding: 10px;
+}
+.rc5 .card-body{
+    max-height: 83vh;
+    overflow-y: scroll;
+}
