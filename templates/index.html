@@ -51,7 +51,7 @@
                 <div class="row" style="margin:0">
                     <div class="col-md-12">
                                 <div class="row  text-right">
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <select class="custom-select " onChange="changeLang()" id="lang" name="lang">
                                             <!-- <option selected value="text/x-csrc">C</option>
                                             <option value="text/x-c++src">C++</option>
@@ -61,7 +61,10 @@
                                             <option value="javascript">Javascript</option>
                                           </select>
                                     </div>
-                                    <div class="col">
+                                    <div class="col-md-6">
+                                        <input type="text" placeholder="Enter the URL here.." id="url" name="url" class="form-control">
+                                    </div>
+                                    <div class="col-md-2">
                                         <button onclick="executeCode()" class="btn btn-success mb-2">Compile</button>
                                     </div>
                                   </div>
@@ -111,9 +114,10 @@
         language = $("#lang").val();
         editor.setOption("mode",language);
     }
+
     function executeCode(){
 
-        var data = {code:editor.getValue(),lang:$("#lang").val(),custom:$("#custom").val()}
+        var data = {code:editor.getValue(),lang:$("#lang").val(),custom:$("#custom").val(),url:$("#url").val()}
         $.ajax({
             url:"/run/",
             type:"POST",

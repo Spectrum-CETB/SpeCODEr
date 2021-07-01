@@ -1,3 +1,7 @@
+'''
+    Import Modules
+'''
+
 from flask import Flask, render_template, request,jsonify
 import subprocess
 import datetime
@@ -5,10 +9,18 @@ import os
 import requests
 from bs4 import BeautifulSoup
 
+'''
+    Initiate the app
+'''
 app = Flask(__name__)
 
 
 def generate_txt(url):
+
+    '''
+    Function to webscrape Data from given url
+    '''
+
     res = requests.get(url)
     soup = BeautifulSoup(res.content, 'html.parser')
     parts = url.split('/')
@@ -40,19 +52,39 @@ def generate_txt(url):
         textfile.write(element + "\n")
     textfile.close()
     return input_name, output_name
-    
+
+  
 def createFile(code,ext):
-        fname=datetime.datetime.now().strftime("%m%d%Y%H%M%S")
-        fname=fname.replace(" ","_")
-        fname=fname.replace(":","_")
-        fname=fname+ext
-        file1 = open(fname, 'w')
-        file1.write(code)
-        file1.close()
 
-        return fname
+    '''
+    Function to Create File
+    '''
+
+    fname=datetime.datetime.now().strftime("%m%d%Y%H%M%S")
+    fname=fname.replace(" ","_")
+    fname=fname.replace(":","_")
+    fname=fname+ext
+    file1 = open(fname, 'w')
+    file1.write(code)
+    file1.close()
+
+    return fname
+
+def runFile(l,inp):
+    '''
+    Run the given file
+    '''
+    with open(inp, 'rb', 0) as a:
+        output = subprocess.run(l,stdin=a,stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True)
+    os.remove(inp)
+    return output.stdout,output.stderr
 
 
+
+
+'''
+Processing Requests
+'''
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -60,33 +92,32 @@ def home():
 @app.route('/run/',methods = ['POST'])
 def run():
    if request.method == 'POST':
+
+        #Fetch Parameters
         code = request.json['code']
         lang = request.json['lang']
         custom = request.json['custom']
-        rv=''
-        print(custom)
-        if(custom !=''):
-            testcase = createFile(custom,".txt")
+        url = request.json['url']
+
+        #To Display Results
+        status = ''
+        
+        #Generate Files
+        iptxt,optxt=generate_txt(url)
+        testcase = createFile(custom,".txt")
+
         if lang=="python":
             fname=createFile(code,".py")
-            if(custom!=''):
-                with open(testcase, 'rb', 0) as a:
-                    rv = subprocess.run(['python',fname],stdin=a,stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True)
-                os.remove(testcase)
-            else:
-                rv = subprocess.run(['python',fname],stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True)
+            output,err = runFile(['python',fname],testcase)
 
         elif lang=="javascript":
             fname=createFile(code,".js")
-            if(custom!=''):
-                with open(testcase, 'rb', 0) as a:
-                    rv = subprocess.run(['node',fname],stdin=a,stdout=subprocess.PIPE,text=True)
-                os.remove(testcase)
-            else:
-                rv = subprocess.run(['node',fname],stdout=subprocess.PIPE,text=True)
+            output,err = runFile(['node',fname],testcase)
         
-        os.remove(fname)    
-        return jsonify({'out':rv.stdout,'err':rv.stderr})
+        os.remove(fname)
+        os.remove(iptxt)
+        os.remove(optxt)    
+        return jsonify({'out':output,'err':err,'status':status})
 
 if __name__ == '__main__':
    app.run(debug = True)
