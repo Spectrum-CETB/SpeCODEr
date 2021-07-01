@@ -2,9 +2,45 @@ from flask import Flask, render_template, request,jsonify
 import subprocess
 import datetime
 import os
+import requests
+from bs4 import BeautifulSoup
 
 app = Flask(__name__)
 
+
+def generate_txt(url):
+    res = requests.get(url)
+    soup = BeautifulSoup(res.content, 'html.parser')
+    parts = url.split('/')
+    num, lev = parts[-2], parts[-1]
+    ip_op = []
+    for i in soup.find_all("pre"):
+        if '<br/>' in str(i):
+            data = str(i).split('<br/>')
+            data[0] = data[0].split('<pre>')[1]
+            data = data[:-1]
+            ip_op.append(data)
+        else:
+            data = str(i).split('\n')
+            data = data[1:-1]
+            ip_op.append(data)
+    input, output = [], []
+    for i in range(2):
+        if i % 2 == 0:
+            input.append("\n".join(ip_op[i]))
+        else:
+            output.append("\n".join(ip_op[i]))
+    input_name, output_name = "input" + num + lev + ".txt", "output" + num + lev + ".txt"
+    textfile = open(input_name, "w")
+    for element in input:
+        textfile.write(element + "\n")
+    textfile.close()
+    textfile = open(output_name, "w")
+    for element in output:
+        textfile.write(element + "\n")
+    textfile.close()
+    return input_name, output_name
+    
 def createFile(code,ext):
         fname=datetime.datetime.now().strftime("%m%d%Y%H%M%S")
         fname=fname.replace(" ","_")
