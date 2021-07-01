@@ -50,6 +50,8 @@ To get a local copy up and running follow these simple steps.
    ```sh
     pip install flask
     pip install subprocess
+    pip install beautifulsoup4
+    pip install requests
     ```
 
 <!-- CONTRIBUTING -->
