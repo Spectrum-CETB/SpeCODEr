@@ -70,6 +70,7 @@ def createFile(code,ext):
 
     return fname
 
+
 def runFile(l,inp):
     '''
     Run the given file
@@ -78,8 +79,6 @@ def runFile(l,inp):
         output = subprocess.run(l,stdin=a,stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True)
     os.remove(inp)
     return output.stdout,output.stderr
-
-
 
 
 '''
@@ -100,11 +99,17 @@ def run():
         url = request.json['url']
 
         #To Display Results
-        status = ''
-        
-        #Generate Files
-        iptxt,optxt=generate_txt(url)
-        testcase = createFile(custom,".txt")
+        status = 'Compiled'
+        if url!='':
+            #Generate Files
+            iptxt,optxt=generate_txt(url)
+            testcase = iptxt
+            file = open(optxt,mode='r')
+            expop = file.read()
+            file.close()
+            os.remove(optxt)
+        else:
+            testcase = createFile(custom,".txt")
 
         if lang=="python":
             fname=createFile(code,".py")
@@ -113,10 +118,14 @@ def run():
         elif lang=="javascript":
             fname=createFile(code,".js")
             output,err = runFile(['node',fname],testcase)
-        
+
         os.remove(fname)
-        os.remove(iptxt)
-        os.remove(optxt)    
+        if url!='':
+            if output==expop:
+                status = "Passed"
+            else:
+                status = "Failed"
+        
         return jsonify({'out':output,'err':err,'status':status})
 
 if __name__ == '__main__':
