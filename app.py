@@ -156,7 +156,7 @@ def compile():
 
         if lang=="python":
             fname=createFile(code,".py")
-            output,err = runFile(['python',fname],testcase)
+            output,err = runFile(['python3',fname],testcase)
 
         elif lang=="javascript":
             fname=createFile(code,".js")
