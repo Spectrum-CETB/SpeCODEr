@@ -2,17 +2,16 @@
     Import Modules
 '''
 
-from flask import Flask, render_template, request,jsonify
+from email import message
+from flask import Flask, render_template, request,jsonify,redirect,url_for,session
 import subprocess
 import datetime
 import os
 import requests
 from bs4 import BeautifulSoup
-
-'''
-    Initiate the app
-'''
-app = Flask(__name__)
+from flask_socketio import SocketIO,emit,join_room,leave_room
+from flask_session import Session
+from flask_cors import CORS, cross_origin
 
 
 def generate_txt(url):
@@ -82,16 +81,60 @@ def runFile(l,inp):
 
 
 '''
+    Initiate the app
+'''
+app = Flask(__name__)
+app.debug = True
+app.config['SECRET_KEY'] = 'Innovate.Accelerate.Elevate.'
+app.config['SESSION_TYPE'] = 'filesystem'
+
+Session(app)
+socketio = SocketIO(app, manage_session=False)
+
+
+'''
 Processing Requests
 '''
-@app.route('/')
-def home():
+   
+@app.route('/', methods=['GET','POST'])
+def index():
     return render_template('index.html')
 
-@app.route('/run/',methods = ['POST'])
-def run():
-   if request.method == 'POST':
+@app.route('/ide',methods=['GET','POST'])
+def ide():
+    if(request.method=='POST'):
+        username = request.form['username']
+        room = request.form['room']
+        #Store the data in the session
+        session['username'] = username
+        session['room'] = room
+        return render_template('ide.html',session=session)
+    else:
+        if(session.get('username') is not None):
+            return render_template('ide.html',session=session)
+        else:
+            return redirect(url_for('index'))
 
+@socketio.on('join',namespace='/ide')
+def join(message):
+    room = session.get('room')
+    join_room(room)
+
+@socketio.on('text',namespace='/ide')
+def text(message):
+    room = session.get('room')
+    emit('message',{'msg': message['msg']},room=room)
+
+@socketio.on('left', namespace='/ide')
+def left(message):
+    room = session.get('room')
+    username = session.get('username')
+    leave_room(room)
+    session.clear()
+
+@app.route('/compile/',methods = ['POST'])
+def compile():
+   if request.method == 'POST':
         #Fetch Parameters
         code = request.json['code']
         lang = request.json['lang']
@@ -128,5 +171,7 @@ def run():
         
         return jsonify({'out':output,'err':err,'status':status})
 
+
+
 if __name__ == '__main__':
-   app.run(debug = True)
+   socketio.run(app)
