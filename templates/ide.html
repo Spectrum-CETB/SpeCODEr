@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../static/cm/doc/docs.css">
     <link rel="stylesheet" href="../static/cm/lib/codemirror.css">
     <link rel="stylesheet" href="../static/cm/theme/darcula.css">
+    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"> <!--  Added FontAwsome -->
     <script src="../static/cm/lib/codemirror.js"></script>
     <script src="../static/cm/mode/javascript/javascript.js"></script>
     <script src="../static/cm/mode/python/python.js"></script>
@@ -70,6 +71,17 @@
                                     <div class="col-md-2">
                                         <h4><span class="status badge badge-light badge-pill"></span></h4>
                                     </div>
+                                    <!-- **************Added Image Upload Button********************** -->
+                                    <div class="col-md-2">
+                                        <div class="row">
+                                            <div id="ocr">
+                                                <input type="file" name="uploadfile" id="start-ocr" style="display:none;" />
+                                                <label for="start-ocr" style="margin-right: 1rem;"><i
+                                                        class="fas fa-upload"></i></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- -------------------------------------------------------------------- -->
                                     <div class="col-md-2">
                                        <p><strong>{{session['room']}}</strong></p>
                                     </div>
@@ -183,6 +195,7 @@
         });
     }
 </script>
+<script src="ocr.js"></script>
 <!-- -----------------------All The JS Links Goes Here----------------------- -->
 
 </body>
