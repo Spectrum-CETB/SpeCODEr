@@ -54,7 +54,7 @@
             <div class="col-md-7 rc7">
                 <div class="row" style="margin:0">
                     <div class="col-md-12">
-                                <div class="row  text-right">
+                                <div class="row">
                                     <div class="col-md-2">
                                         <select class="custom-select " onChange="changeLang()" id="lang" name="lang">
                                             <!-- <option selected value="text/x-csrc">C</option>
@@ -68,21 +68,18 @@
                                     <div class="col-md-3">
                                         <input type="text" placeholder="Enter the URL here.." id="url" name="url" class="form-control">
                                     </div>
-                                    <div class="col-md-2">
-                                        <h4><span class="status badge badge-light badge-pill"></span></h4>
-                                    </div>
+                                    
                                     <!-- **************Added Image Upload Button********************** -->
                                     <div class="col-md-2">
-                                        <div class="row">
                                             <div id="ocr">
                                                 <input type="file" name="uploadfile" id="start-ocr" style="display:none;" />
-                                                <label for="start-ocr" style="margin-right: 1rem;"><i
-                                                        class="fas fa-upload"></i></label>
+                                                <label for="start-ocr" style="margin-right: 1rem;">
+                                                    <abbr title="Upload an image to code"><i class="fas fa-upload"></i></abbr>
+                                                </label>
                                             </div>
-                                        </div>
                                     </div>
                                     <!-- -------------------------------------------------------------------- -->
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                        <p><strong>{{session['room']}}</strong></p>
                                     </div>
                                     <div class="col-md-2">
