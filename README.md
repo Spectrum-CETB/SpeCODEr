@@ -1,39 +1,25 @@
-<!-- TABLE OF CONTENTS -->
-<details open="open">
-  <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-  </ol>
-</details>
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub forks](https://img.shields.io/github/forks/Spectrum-CETB/SpeCODEr?style=social)](https://github.com/jawed321/dynamic-portfolio/network/members)
+[![GitHub stars](https://img.shields.io/github/stars/Spectrum-CETB/SpeCODEr?style=social)](https://github.com/jawed321/dynamic-portfolio/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/Spectrum-CETB/LesKollab.svg)](https://gitHub.com/Naereen/jawed321/dynamic-portfolio/issues/)
+[![GitHub pull-requests](https://img.shields.io/github/issues-pr/Spectrum-CETB/LesKollab.svg)](https://GitHub.com/Spectrum-CETB/SpeCODEr/pull/)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
 
+# SpeCODEr (Web)
 
-<!-- ABOUT THE PROJECT -->
-## About The Project
+[SpeCODEr ](https://github.com/Spectrum-CETB/SpeCODEr) is a real-time web-based code editor with a feature to create room and collaborate with friends to solve coding questions or problem statements. Truly something for all the developers and coders out there to check out.
 
-A simple online IDE
+## Features
+<h4>The functionalities of the project shall include: </h4>
+<ul>
+<li>Collaboration in real-time</li>
+ <li>Proper execution of code</li>
+ <li>WebScrap details from given links</li>
+ <li>Text to Code conversion</li>
+</ul>
 
-### Built With
-
-- HTML
-- CSS
-- Javascript
-- Bootstrap 4.6.0
-- Python 3.7
-- Flask
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -54,6 +40,28 @@ To get a local copy up and running follow these simple steps.
     pip install requests
     ```
 
+
+## TECH STACK
+
+Our tech stack includes:
+
+<img alt="HTML5" src="https://img.shields.io/badge/html5%20-%23E34F26.svg?&style=for-the-badge&logo=html5&logoColor=white"/>  <img alt="CSS3" src="https://img.shields.io/badge/css3%20-%231572B6.svg?&style=for-the-badge&logo=css3&logoColor=white"/> <img alt="JavaScript" src="https://img.shields.io/badge/javascript%20-%23323330.svg?&style=for-the-badge&logo=javascript&logoColor=%23F7DF1E"/>  <img alt="Flask" src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white"/> 
+
+
+## Branches
+
+The repository has the following permanent branches:
+
+ * **main**  This contains the code which has been released.
+ 
+## Demo
+
+
+
+https://user-images.githubusercontent.com/47537488/136994132-0838ba04-4021-4ac9-bd31-0226b39cf834.mp4
+
+
+
 <!-- CONTRIBUTING -->
 ## Contributing
 
@@ -65,11 +73,13 @@ Contributions are what make the open source community such an amazing place to b
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
+## Contact
 
+You can reach us at-
 
-<!-- LICENSE -->
+[<img alt="Discord" src="https://cdn.discordapp.com/attachments/878682402564751401/889109868500369418/discord.png"/>](https://discord.gg/dynatWbBaP)
+
 ## License
 
-Distributed under the MIT License. See `LICENSE` for more information.
-
+Dynamic Portfolio is licensed under the MIT License. 
 
