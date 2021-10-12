@@ -81,5 +81,5 @@ You can reach us at-
 
 ## License
 
-Dynamic Portfolio is licensed under the MIT License. 
+SpeCODEr is licensed under the MIT License. 
 
